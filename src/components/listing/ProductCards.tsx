@@ -1,10 +1,10 @@
 import carPhoto from "../../assets/Car.png";
-import CountDown from "./CountDown";
+import CountDownForCards from "../count-down/CountDownForCards";
 
-const ProductListingCards = () => {
-  const cards = [{}, {}, {}, {}, {}].map(() => ({
+const ProductCards = () => {
+  const cards = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}].map(() => ({
     title: "Toyota - C-HR",
-    description: "Get Ready! The Auction Starts In:",
+    description: "The Auction Starts In:",
     tags: ["diesel", "2022", "743 Miles", "RED", "Manual"],
   }));
 
@@ -15,7 +15,7 @@ const ProductListingCards = () => {
           key={index}
           className="bg-white shadow-lg rounded-xl overflow-hidden"
         >
-          <a href="/details">
+          <a href="/details" target="_blank">
             <img
               src={carPhoto}
               alt="Car Image"
@@ -36,19 +36,23 @@ const ProductListingCards = () => {
               </div>
 
               <p className="mt-4">{card.description}</p>
-              <CountDown />
+              <CountDownForCards />
             </div>
           </a>
-          {/* Favourite */}
-          <div>
-            <button className="w-full px-4 py-2 bg-eighthColor hover:text-white hover:bg-sixthColor">
-              Favourite
-            </button>
-          </div>
+          <button className="w-full bg-eighthColor hover:text-white hover:bg-sixthColor py-2 px-5 inline-flex items-center  justify-center">
+            <svg
+              className="fill-current w-4 h-4 mr-2"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            Favourite
+          </button>
         </div>
       ))}
     </div>
   );
 };
 
-export default ProductListingCards;
+export default ProductCards;

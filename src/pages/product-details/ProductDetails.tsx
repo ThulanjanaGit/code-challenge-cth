@@ -1,5 +1,5 @@
 import carPhoto from "../../assets/Car.png";
-import CountDown from "../../components/listing/CountDown";
+import CountDownForDetails from "../../components/count-down/CountDownForDetails";
 
 const ProductDetails = () => {
   const vehicle = [
@@ -36,6 +36,19 @@ const ProductDetails = () => {
 
   return (
     <div className="text-firstColor">
+      <button
+        onClick={() => (window.location.href = "/")}
+        className="font-semibold py-2 px-5 inline-flex items-center hover:text-thirdColor"
+      >
+        <svg
+          className="fill-current w-4 h-4 mr-2"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 10 20"
+        >
+          <path d="M10 3L4 10l6 7h2l-5-7 5-7h-2z" />
+        </svg>
+        <span>Back to results</span>
+      </button>
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-3/5 p-4 md:p-6">
           <img
@@ -50,20 +63,20 @@ const ProductDetails = () => {
             Get Ready! The Auction Starts In:
           </h4>
           <div className="my-4 bg-fifthColor text-white rounded-lg">
-            <CountDown />
+            <CountDownForDetails />
           </div>
           <h4 className="text-xl font-bold my-4">Date: 2024/04/15 09:00:00</h4>
           <h4 className="text-xl font-bold my-4">Starting Bid: €17000</h4>
         </div>
       </div>
-      <div className="w-full p-4 md:p-6">
+      <div className="w-full md:p-6">
         <h2 className="mb-4 text-2xl font-serif font-bold">Vehicle Overview</h2>
-        <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor my-4">
+        <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor pb-2 mb-4">
           Specification
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {vehicle.map((vehicle, index) => (
-            <div key={index} className="p-4 shadow-lg rounded-lg">
+            <div key={index} className="p-1 border-b border-black-300">
               <p className="font-medium">
                 {vehicle.description} : {vehicle.data}
               </p>
@@ -72,13 +85,13 @@ const ProductDetails = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row">
-        <div className="w-full md:w-2/5 p-4 md:p-6">
-          <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor mb-4">
+        <div className="w-full md:w-1/4 p-4 md:p-6">
+          <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor pb-2 mb-4">
             Ownership Details
           </h3>
           <div className="grid grid-cols-1 gap-3">
             {vehicleOwnership.map((vehicle, index) => (
-              <div key={index} className="p-4 shadow-lg rounded-lg">
+              <div key={index} className="p-1 border-b border-black-300">
                 <p className="font-medium">
                   {vehicle.description} : {vehicle.data}
                 </p>
@@ -86,13 +99,13 @@ const ProductDetails = () => {
             ))}
           </div>
         </div>
-        <div className="w-full md:w-3/5 p-4 md:p-6">
-          <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor mb-4">
+        <div className="w-full md:w-3/4 p-4 md:p-6">
+          <h3 className="text-xl font-serif font-bold text-secondColor border-b-2 border-thirdColor pb-2 mb-4">
             Equipment
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             {vehicleEquipment.map((vehicle, index) => (
-              <div key={index} className="p-4 shadow-lg rounded-lg">
+              <div key={index} className="p-1 border-b border-black-300">
                 <p className="font-medium">{vehicle}</p>
               </div>
             ))}
