@@ -1,7 +1,38 @@
+import { useEffect, useState } from "react";
 import ProductListingFilters from "../../components/filters/ProductListingFilters";
 import ProductListingContent from "../../components/listing/ProductListingContent";
+import { DataService } from "../../shared/services/data.service";
+import {
+  DataResponse,
+  Product,
+  SearchFilters,
+  SelectedFilters,
+} from "../../shared/types/shared.types";
 
 const ProductListing = () => {
+  const [filters, setFilters] = useState<SearchFilters>();
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
+    make: "any",
+    model: "any",
+    minBid: 0,
+    maxBid: Infinity,
+  });
+
+  useEffect(() => {
+    const response: DataResponse = DataService.getData(
+      selectedFilters,
+      "",
+      "asc",
+      9,
+      1
+    );
+    console.log(response);
+    setFilters(response.filters);
+    setProducts(response.products);
+  }, [selectedFilters]);
+
   return (
     <div className="w-full font-serif">
       <h1 className="text-2xl font-bold mb-4">Cars for auction</h1>
@@ -28,8 +59,12 @@ const ProductListing = () => {
         win—start bidding today and drive off with a great deal!
       </p>
       <div className="flex flex flex-col text-firstColor md:flex-row">
-        <ProductListingFilters />
-        <ProductListingContent />
+        <ProductListingFilters
+          filters={filters}
+          selectedFilters={selectedFilters}
+          onFilterUpdate={setSelectedFilters}
+        />
+        <ProductListingContent products={products} />
       </div>
     </div>
   );
