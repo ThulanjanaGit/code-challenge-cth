@@ -1,45 +1,62 @@
-import carPhoto from "../../assets/Car.png";
+import { Product } from "../../shared/types/shared.types";
 import CountDownForCards from "../count-down/CountDownForCards";
 
-const ProductCards = () => {
-  const cards = [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}].map(() => ({
-    title: "Toyota - C-HR",
-    description: "The Auction Starts In:",
-    tags: ["diesel", "2022", "743 Miles", "RED", "Manual"],
-  }));
+type ProductCardsProps = {
+  products: Product[];
+};
 
+const ProductCards = ({ products }: ProductCardsProps) => {
   return (
     <div className="mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {cards.map((card, index) => (
+      {products.map((product) => (
         <div
-          key={index}
-          className="bg-white shadow-lg rounded-xl overflow-hidden"
+          key={product.id}
+          className="bg-white shadow-lg rounded-xl overflow-hidden flex flex-col h-full "
         >
-          <a href="/details" target="_blank">
+          <a
+            href={`/details/${product.id}`}
+            target="_blank"
+            className="flex-grow"
+          >
             <img
-              src={carPhoto}
+              src={product.photo}
               alt="Car Image"
               className="w-full h-48 object-cover"
             />
 
             <div className="p-3">
-              <h2 className="text-xl font-bold">{card.title}</h2>
+              <h2 className="text-xl font-bold">
+                {product.make} - {product.model}
+              </h2>
               <div className="flex flex-wrap gap-2 mt-4">
-                {card.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <span className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg">
+                  {product.fuel}
+                </span>
+                <span className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg">
+                  {product.year}
+                </span>
+                <span className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg">
+                  {product.mileage} Miles
+                </span>
+                <span className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg">
+                  {product.details.specification.transmission}
+                </span>
+                <span className="bg-firstColor text-white uppercase text-xs px-3 py-1 rounded-lg">
+                  {product.details.specification.colour}
+                </span>
               </div>
 
-              <p className="mt-4">{card.description}</p>
-              <CountDownForCards />
+              <p className="mt-4">The Auction Starts In:</p>
+              <CountDownForCards auctionDateTime={product.auctionDateTime} />
             </div>
           </a>
-          <button className="w-full bg-eighthColor hover:text-white hover:bg-sixthColor py-2 px-5 inline-flex items-center  justify-center">
+          <button
+            className={`w-full py-2 px-5 inline-flex items-center justify-center ${
+              product.favourite
+                ? "text-white bg-sixthColor hover:text-black hover:bg-eighthColor"
+                : "text-black bg-eighthColor hover:text-white hover:bg-sixthColor"
+            }`}
+          >
             <svg
               className="fill-current w-4 h-4 mr-2"
               xmlns="http://www.w3.org/2000/svg"

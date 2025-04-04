@@ -1,38 +1,67 @@
-import carPhoto from "../../assets/Car.png";
+import { useParams } from "react-router-dom";
 import CountDownForDetails from "../../components/count-down/CountDownForDetails";
+import { DataService } from "../../shared/services/data.service";
+import { Product } from "../../shared/types/shared.types";
+import NotFoundPage from "../not-found-page/NotFoundPage";
 
 const ProductDetails = () => {
+  const { product_id } = useParams();
+
+  const product: Product | null = DataService.getProductDetailsById(
+    parseInt(product_id!)
+  );
+
+  if (!product) {
+    return <NotFoundPage />;
+  }
+
   const vehicle = [
-    { description: "Make", data: "Toyota" },
-    { description: "Model", data: "C-HR" },
-    { description: "Engine Size", data: "1.8L" },
-    { description: "Fuel Type", data: "diesel" },
-    { description: "Year", data: "2022" },
-    { description: "Mileage", data: "743" },
-    { description: "Vehicle Type", data: "Car" },
-    { description: "Colour", data: "RED" },
-    { description: "Transmission", data: "Manual" },
-    { description: "Number Of Doors", data: "3" },
-    { description: "CO2 Emissions", data: "139 g/km" },
-    { description: "NOX Emission", data: "230" },
-    { description: "Number Of Keys", data: "2" },
+    { description: "Make", data: product.make },
+    { description: "Model", data: product.model },
+    { description: "Engine Size", data: product.engineSize },
+    { description: "Fuel Type", data: product.fuel },
+    { description: "Year", data: product.year },
+    { description: "Mileage", data: product.mileage },
+    {
+      description: "Vehicle Type",
+      data: product.details.specification.vehicleType,
+    },
+    { description: "Colour", data: product.details.specification.colour },
+    {
+      description: "Transmission",
+      data: product.details.specification.transmission,
+    },
+    {
+      description: "Number Of Doors",
+      data: product.details.specification.numberOfDoors,
+    },
+    {
+      description: "CO2 Emissions",
+      data: product.details.specification.co2Emissions,
+    },
+    {
+      description: "NOX Emission",
+      data: product.details.specification.noxEmissions,
+    },
+    {
+      description: "Number Of Keys",
+      data: product.details.specification.numberOfKeys,
+    },
   ];
 
   const vehicleOwnership = [
-    { description: "Logbook", data: "Present" },
-    { description: "Number Of Owners", data: "8" },
-    { description: "Date Of Registration", data: "2015/03/31" },
+    { description: "Logbook", data: product.details.ownership.logBook },
+    {
+      description: "Number Of Owners",
+      data: product.details.ownership.numberOfOwners,
+    },
+    {
+      description: "Date Of Registration",
+      data: product.details.ownership.dateOfRegistration,
+    },
   ];
 
-  const vehicleEquipment = [
-    "Air Conditioning",
-    "Tyre Inflation Kit",
-    "Photocopy of V5 Present",
-    "Navigation HDD",
-    "17 Alloy Wheels",
-    "Engine Mods/Upgrades",
-    "Modifd/Added Body Parts",
-  ];
+  const vehicleEquipment = product.details.equipment;
 
   return (
     <div className="text-firstColor">
@@ -52,21 +81,27 @@ const ProductDetails = () => {
       <div className="flex flex-col md:flex-row">
         <div className="w-full md:w-3/5 p-4 md:p-6">
           <img
-            src={carPhoto}
+            src={product.photo}
             alt="Car Image"
             className="w-full h-96 object-cover rounded-xl"
           />
         </div>
         <div className="w-full h-96 content-center md:w-2/5 p-4 md:p-6">
-          <h1 className="my-6 text-4xl font-serif font-bold">Toyota - C-HR</h1>
+          <h1 className="my-6 text-4xl font-serif font-bold">
+            {product.make} - {product.model}
+          </h1>
           <h4 className="text-xl font-bold my-4">
             Get Ready! The Auction Starts In:
           </h4>
           <div className="my-4 bg-fifthColor text-white rounded-lg">
             <CountDownForDetails />
           </div>
-          <h4 className="text-xl font-bold my-4">Date: 2024/04/15 09:00:00</h4>
-          <h4 className="text-xl font-bold my-4">Starting Bid: €17000</h4>
+          <h4 className="text-xl font-bold my-4">
+            Date: {product.auctionDateTime}
+          </h4>
+          <h4 className="text-xl font-bold my-4">
+            Starting Bid: €{product.startingBid}
+          </h4>
         </div>
       </div>
       <div className="w-full md:p-6">

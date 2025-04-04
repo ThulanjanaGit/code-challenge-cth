@@ -1,21 +1,16 @@
 import { useState, useEffect } from "react";
 
-const TARGET_DATE = "2025-04-22 09:00:00";
+// const TARGET_DATE = "2025-04-22 09:00:00";
+type CountDownForCardsProps = {
+  auctionDateTime: string;
+};
 
-const CountDownForCards: React.FC = () => {
+const CountDownForCards = ({ auctionDateTime }: CountDownForCardsProps) => {
   const calculateTimeLeft = () => {
-    const storedTime = localStorage.getItem("countdownTime");
     const now = new Date().getTime();
-    const targetTime = storedTime
-      ? parseInt(storedTime)
-      : new Date(TARGET_DATE).getTime();
-
-    if (!storedTime) {
-      localStorage.setItem("countdownTime", targetTime.toString());
-    }
+    const targetTime = new Date(auctionDateTime).getTime();
 
     const difference = targetTime - now;
-
     if (difference <= 0) {
       return { days: 0, hours: 0, minutes: 0 };
     }
