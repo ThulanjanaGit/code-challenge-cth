@@ -94,7 +94,7 @@ const ProductDetails = () => {
             Get Ready! The Auction Starts In:
           </h4>
           <div className="my-4 bg-fifthColor text-white rounded-lg">
-            <CountDownForDetails />
+            <CountDownForDetails auctionDateTime={product.auctionDateTime} />
           </div>
           <h4 className="text-xl font-bold my-4">
             Date: {product.auctionDateTime}

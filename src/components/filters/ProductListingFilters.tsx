@@ -66,7 +66,6 @@ const ProductListingFilters = ({
               model: e.target.value,
             };
             onFilterUpdate(newFilters);
-            //console.log("models", filters?.model.get(newFilters.make));
           }}
         >
           <option value="any">Any</option>
@@ -94,7 +93,9 @@ const ProductListingFilters = ({
         >
           <option value="0">any</option>
           {bidRange.map((bid) => (
-            <option value={bid}>{bid}</option>
+            <option key={bid} value={bid}>
+              {bid}
+            </option>
           ))}
         </select>
       </div>
@@ -114,10 +115,13 @@ const ProductListingFilters = ({
         >
           <option value="Infinity">any</option>
           {bidRange.map((bid) => (
-            <option value={bid}>{bid}</option>
+            <option key={bid} value={bid}>
+              {bid}
+            </option>
           ))}
         </select>
       </div>
+
       {/* Favourite */}
       <div className="mb-4">
         <label className="block font-semibold">Favourite</label>

@@ -28,7 +28,6 @@ const ProductListing = () => {
       9,
       1
     );
-    console.log(response);
     setFilters(response.filters);
     setProducts(response.products);
   }, [selectedFilters]);

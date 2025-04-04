@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 
-const CountDownForDetails = () => {
+type CountDownForDetailsProps = {
+  auctionDateTime: string;
+};
+
+const CountDownForDetails = ({ auctionDateTime }: CountDownForDetailsProps) => {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -9,7 +13,7 @@ const CountDownForDetails = () => {
   });
 
   useEffect(() => {
-    const targetTime = new Date("2025-04-19T00:00:00").getTime();
+    const targetTime = new Date(auctionDateTime).getTime();
 
     const updateCountdown = () => {
       const now = Date.now();

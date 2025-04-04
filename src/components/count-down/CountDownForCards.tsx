@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-// const TARGET_DATE = "2025-04-22 09:00:00";
 type CountDownForCardsProps = {
   auctionDateTime: string;
 };
