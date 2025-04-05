@@ -1,3 +1,4 @@
+// Response type from the data service for the listing page
 export type DataResponse = {
   products: Product[];
   filters: SearchFilters;
@@ -5,6 +6,20 @@ export type DataResponse = {
   currentPage: number;
 };
 
+// Filters for the FE component
+export type SearchFilters = {
+  make: string[];
+  model: Map<string, string[]>;
+  priceRange: ProductPriceRange;
+  favourite?: boolean[];
+};
+
+type ProductPriceRange = {
+  max: number;
+  min: number;
+};
+
+// User selected filters
 export type SelectedFilters = {
   make: string;
   model: string;
@@ -50,17 +65,4 @@ export type ProductDetailsOwnership = {
   logBook: string;
   numberOfOwners: number;
   dateOfRegistration: string;
-};
-
-// Search Filters
-export type SearchFilters = {
-  make: string[];
-  model: Map<string, string[]>;
-  priceRange: ProductPriceRange;
-  favourite?: boolean[];
-};
-
-type ProductPriceRange = {
-  max: number;
-  min: number;
 };

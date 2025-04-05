@@ -13,8 +13,11 @@ const Pagination = ({
 }: PaginationProps) => {
   const totalPages = Math.ceil(totalItems / productsPerPage);
 
+  // Genarate page numbers
   const generatePages = () => {
     const pages: (number | string)[] = [];
+
+    // Add buffer to make it mobile friendly
     const buffer = window.innerWidth < 640 ? 1 : 2;
 
     pages.push(1);

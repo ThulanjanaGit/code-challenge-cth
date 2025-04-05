@@ -10,6 +10,8 @@ type ProductListingContentProps = {
   productsPerPage: number;
   onProductPerPageChange: (count: number) => void;
   onPageChange: (newPage: number) => void;
+  onFavouriteBtnClick: (id: number) => void;
+  onProductSorting: (sortBy: string, sortOrder: "asc" | "desc") => void;
 };
 
 const ProductListingContent = ({
@@ -19,6 +21,8 @@ const ProductListingContent = ({
   productsPerPage,
   onProductPerPageChange,
   onPageChange,
+  onFavouriteBtnClick,
+  onProductSorting,
 }: ProductListingContentProps) => {
   return (
     <div className="w-full overflow-y-auto font-serif md:w-4/5 p-4 md:p-6">
@@ -27,8 +31,12 @@ const ProductListingContent = ({
         pageNumber={pageNumber}
         productsPerPage={productsPerPage}
         onProductPerPageChange={onProductPerPageChange}
+        onProductSorting={onProductSorting}
       />
-      <ProductCards products={products} />
+      <ProductCards
+        products={products}
+        onFavouriteBtnClick={onFavouriteBtnClick}
+      />
       <Pagination
         totalItems={totalItems}
         pageNumber={pageNumber}
