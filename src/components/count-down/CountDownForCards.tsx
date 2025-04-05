@@ -1,31 +1,12 @@
-import { useState, useEffect } from "react";
+import { calculateTimeLeft } from "../../shared/util/shared.util";
 
 type CountDownForCardsProps = {
   auctionDateTime: string;
 };
 
 const CountDownForCards = ({ auctionDateTime }: CountDownForCardsProps) => {
-  const calculateTimeLeft = () => {
-    const now = new Date().getTime();
-    const targetTime = new Date(auctionDateTime).getTime();
-
-    const difference = targetTime - now;
-    if (difference <= 0) {
-      return { days: 0, hours: 0, minutes: 0 };
-    }
-
-    return {
-      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-      minutes: Math.floor((difference / (1000 * 60)) % 60),
-    };
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft);
-
-  useEffect(() => {
-    setTimeLeft(calculateTimeLeft());
-  }, []);
+  // Calculate the remaining time
+  const timeLeft = calculateTimeLeft(auctionDateTime);
 
   return (
     <div className="grid grid-flow-col gap-5 text-center auto-cols-max justify-center capitalize">

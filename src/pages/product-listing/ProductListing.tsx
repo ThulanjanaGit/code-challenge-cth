@@ -15,7 +15,12 @@ const ProductListing = () => {
   const [totalItems, setTotalItems] = useState<number>(0);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [productPerPage, setProductPerPage] = useState<number>(9);
+  const [productSortBy, setProductSortBy] = useState<string>("id");
+  const [productSortOrder, setProductSortOrder] = useState<"asc" | "desc">(
+    "asc"
+  );
 
+  // Filters
   const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
     make: "any",
     model: "any",
@@ -24,21 +29,44 @@ const ProductListing = () => {
     favourite: false,
   });
 
-  useEffect(() => {
-    const response: DataResponse = DataService.getData(
+  const retrieveData = () => {
+    DataService.getData(
       selectedFilters,
-      "",
-      "asc",
+      productSortBy,
+      productSortOrder,
       productPerPage,
       pageNumber
-    );
-    setFilters(response.filters);
-    setProducts(response.products);
-    setTotalItems(response.totalItems);
-  }, [selectedFilters, pageNumber, productPerPage]);
+    ).then((response: DataResponse) => {
+      setFilters(response.filters);
+      setProducts(response.products);
+      setTotalItems(response.totalItems);
+    });
+  };
+
+  useEffect(() => {
+    retrieveData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    selectedFilters,
+    pageNumber,
+    productPerPage,
+    productSortBy,
+    productSortOrder,
+  ]);
+
+  const setFavouriteById = (id: number) => {
+    DataService.setFavouriteById(id);
+    retrieveData();
+  };
+
+  const onProductSorting = (sortBy: string, sortOrder: "asc" | "desc") => {
+    setProductSortBy(sortBy);
+    setProductSortOrder(sortOrder);
+  };
 
   return (
     <div className="w-full font-serif">
+      {/* Page description */}
       <h1 className="text-2xl font-bold mb-4">Cars for auction</h1>
       <p className="mb-6">
         Welcome to our Cars for Auction page, where you'll find a diverse
@@ -62,6 +90,8 @@ const ProductListing = () => {
         car, place your bid confidently. Don't miss out on your opportunity to
         win—start bidding today and drive off with a great deal!
       </p>
+
+      {/* Listing area */}
       <div className="flex flex flex-col text-firstColor md:flex-row">
         <ProductListingFilters
           filters={filters}
@@ -75,6 +105,8 @@ const ProductListing = () => {
           productsPerPage={productPerPage}
           onProductPerPageChange={setProductPerPage}
           onPageChange={setPageNumber}
+          onFavouriteBtnClick={setFavouriteById}
+          onProductSorting={onProductSorting}
         />
       </div>
     </div>

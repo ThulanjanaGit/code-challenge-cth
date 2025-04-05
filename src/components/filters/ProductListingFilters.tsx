@@ -9,10 +9,11 @@ type ProductListingFiltersProps = {
   onFilterUpdate: (filters: SelectedFilters) => void;
 };
 
+// Calculate price filter details
 const generateMultiples = (start: number, end: number) => {
   const result = [];
   for (let i = start; i <= end; i++) {
-    if (i % 100 === 0) {
+    if (i % 500 === 0) {
       result.push(i);
     }
   }
@@ -32,7 +33,7 @@ const ProductListingFilters = ({
     <div className="w-full md:w-1/5 bg-eighthColor p-4 md:p-6 rounded-lg shadow-md h-full">
       <h2 className="text-xl font-mono font-bold mb-4">Filters</h2>
 
-      {/* Make */}
+      {/* Make filter */}
       <div className="mb-4">
         <label className="block font-semibold">Make</label>
         <select
@@ -55,7 +56,7 @@ const ProductListingFilters = ({
         </select>
       </div>
 
-      {/* Model */}
+      {/* Model filter */}
       <div className="mb-4">
         <label className="block font-semibold">Model</label>
         <select
@@ -78,7 +79,7 @@ const ProductListingFilters = ({
         </select>
       </div>
 
-      {/* Min Price */}
+      {/* Min price filter */}
       <div className="mb-4">
         <label className="block font-semibold">Min Bid</label>
         <select
@@ -100,7 +101,7 @@ const ProductListingFilters = ({
         </select>
       </div>
 
-      {/* Max Price */}
+      {/* Max price filter */}
       <div className="mb-4">
         <label className="block font-semibold">Max Bid</label>
         <select
@@ -122,7 +123,7 @@ const ProductListingFilters = ({
         </select>
       </div>
 
-      {/* Favourite */}
+      {/* Favourite filter */}
       <div className="mb-4">
         <label className="block font-semibold">Favourite</label>
         <select
