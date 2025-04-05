@@ -74,6 +74,16 @@ const getProductDetailsById = (productId: number): Product | null => {
   return product[0];
 };
 
+const getPaginatedProducts = (
+  products: Product[],
+  pageNumber: number,
+  itemsPerPage: number
+) => {
+  const startIndex = (pageNumber - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  return products.slice(startIndex, endIndex);
+};
+
 const getData = (
   filters: SelectedFilters,
   sortBy: string,
@@ -91,12 +101,13 @@ const getData = (
         max: 0,
       },
     },
+    totalItems: 0,
     currentPage: pageNumber,
   };
 
   response.filters = generateFilters();
 
-  response.products = products
+  const allProducts = products
     .filter(
       (product) => filters.make === "any" || product.make === filters.make
     )
@@ -109,8 +120,17 @@ const getData = (
     .filter(
       (product) =>
         filters.maxBid === Infinity || product.startingBid <= filters.maxBid
+    )
+    .filter(
+      (product) => filters.favourite === false || product.favourite === true
     );
-  response.totalItems = response.products.length;
+
+  response.products = getPaginatedProducts(
+    allProducts,
+    pageNumber,
+    itemsPerPage
+  );
+  response.totalItems = allProducts.length;
 
   return response;
 };

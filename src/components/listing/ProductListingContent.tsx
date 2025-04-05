@@ -5,14 +5,36 @@ import { Product } from "../../shared/types/shared.types";
 
 type ProductListingContentProps = {
   products: Product[];
+  totalItems: number;
+  pageNumber: number;
+  productsPerPage: number;
+  onProductPerPageChange: (count: number) => void;
+  onPageChange: (newPage: number) => void;
 };
 
-const ProductListingContent = ({ products }: ProductListingContentProps) => {
+const ProductListingContent = ({
+  products,
+  totalItems,
+  pageNumber,
+  productsPerPage,
+  onProductPerPageChange,
+  onPageChange,
+}: ProductListingContentProps) => {
   return (
     <div className="w-full overflow-y-auto font-serif md:w-4/5 p-4 md:p-6">
-      <ProductSortAndCountBar />
+      <ProductSortAndCountBar
+        productCount={totalItems}
+        pageNumber={pageNumber}
+        productsPerPage={productsPerPage}
+        onProductPerPageChange={onProductPerPageChange}
+      />
       <ProductCards products={products} />
-      <Pagination />
+      <Pagination
+        totalItems={totalItems}
+        pageNumber={pageNumber}
+        productsPerPage={productsPerPage}
+        onPageChange={onPageChange}
+      />
     </div>
   );
 };

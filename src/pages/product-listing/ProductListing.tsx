@@ -12,12 +12,16 @@ import {
 const ProductListing = () => {
   const [filters, setFilters] = useState<SearchFilters>();
   const [products, setProducts] = useState<Product[]>([]);
+  const [totalItems, setTotalItems] = useState<number>(0);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [productPerPage, setProductPerPage] = useState<number>(9);
 
   const [selectedFilters, setSelectedFilters] = useState<SelectedFilters>({
     make: "any",
     model: "any",
     minBid: 0,
     maxBid: Infinity,
+    favourite: false,
   });
 
   useEffect(() => {
@@ -25,13 +29,13 @@ const ProductListing = () => {
       selectedFilters,
       "",
       "asc",
-      9,
-      1
+      productPerPage,
+      pageNumber
     );
-    console.log(response);
     setFilters(response.filters);
     setProducts(response.products);
-  }, [selectedFilters]);
+    setTotalItems(response.totalItems);
+  }, [selectedFilters, pageNumber, productPerPage]);
 
   return (
     <div className="w-full font-serif">
@@ -64,7 +68,14 @@ const ProductListing = () => {
           selectedFilters={selectedFilters}
           onFilterUpdate={setSelectedFilters}
         />
-        <ProductListingContent products={products} />
+        <ProductListingContent
+          products={products}
+          totalItems={totalItems}
+          pageNumber={pageNumber}
+          productsPerPage={productPerPage}
+          onProductPerPageChange={setProductPerPage}
+          onPageChange={setPageNumber}
+        />
       </div>
     </div>
   );

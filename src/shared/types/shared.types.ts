@@ -1,8 +1,8 @@
 export type DataResponse = {
   products: Product[];
   filters: SearchFilters;
-  totalItems?: number;
-  currentPage?: number;
+  totalItems: number;
+  currentPage: number;
 };
 
 export type SelectedFilters = {
@@ -10,6 +10,7 @@ export type SelectedFilters = {
   model: string;
   minBid: number;
   maxBid: number;
+  favourite: boolean;
 };
 
 // Product
@@ -56,6 +57,7 @@ export type SearchFilters = {
   make: string[];
   model: Map<string, string[]>;
   priceRange: ProductPriceRange;
+  favourite?: boolean[];
 };
 
 type ProductPriceRange = {

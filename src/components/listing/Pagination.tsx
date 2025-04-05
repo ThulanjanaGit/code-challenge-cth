@@ -1,28 +1,32 @@
-import React, { useState, useEffect } from "react";
+type PaginationProps = {
+  totalItems: number;
+  pageNumber: number;
+  productsPerPage: number;
+  onPageChange: (newPage: number) => void;
+};
 
-const Pagination: React.FC = () => {
-  const totalPages = 50;
-  const [currentPage, setCurrentPage] = useState(25);
-
-  useEffect(() => {
-    localStorage.setItem("currentPage", currentPage.toString());
-  }, [currentPage]);
+const Pagination = ({
+  totalItems,
+  pageNumber,
+  productsPerPage,
+  onPageChange,
+}: PaginationProps) => {
+  const totalPages = Math.ceil(totalItems / productsPerPage);
 
   const generatePages = () => {
     const pages: (number | string)[] = [];
     const buffer = window.innerWidth < 640 ? 1 : 2;
 
     pages.push(1);
-    if (currentPage - buffer > 2) pages.push("...");
+    if (pageNumber - buffer > 2) pages.push("...");
     for (
-      let i = Math.max(2, currentPage - buffer);
-      i <= Math.min(totalPages - 1, currentPage + buffer);
+      let i = Math.max(2, pageNumber - buffer);
+      i <= Math.min(totalPages - 1, pageNumber + buffer);
       i++
     ) {
       pages.push(i);
     }
-
-    if (currentPage + buffer < totalPages - 1) pages.push("...");
+    if (pageNumber + buffer < totalPages - 1) pages.push("...");
     if (totalPages > 1) pages.push(totalPages);
 
     return pages;
@@ -32,10 +36,10 @@ const Pagination: React.FC = () => {
     <div className="flex flex-wrap justify-center items-center space-x-2 mt-5">
       {/* Previous Button */}
       <button
-        onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
-        disabled={currentPage === 1}
+        onClick={() => onPageChange(pageNumber - 1)}
+        disabled={pageNumber === 1}
         className={`px-3 py-2 border rounded ${
-          currentPage === 1
+          pageNumber === 1
             ? "opacity-50 cursor-not-allowed"
             : "hover:bg-gray-200"
         }`}
@@ -48,28 +52,28 @@ const Pagination: React.FC = () => {
         typeof page === "number" ? (
           <button
             key={index}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => onPageChange(page)}
             className={`px-4 py-2 border rounded ${
-              page === currentPage
-                ? "font-bold bg-eighthColor"
+              page === pageNumber
+                ? "font-bold bg-eighthColor text-white"
                 : "hover:bg-gray-300"
             }`}
           >
             {page}
           </button>
         ) : (
-          <span key={index} className="px-3 py-2">
-            ...
+          <span key={index} className="px-3 py-2 select-none">
+            {page}
           </span>
         )
       )}
 
       {/* Next Button */}
       <button
-        onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
-        disabled={currentPage === totalPages}
+        onClick={() => onPageChange(pageNumber + 1)}
+        disabled={pageNumber === totalPages}
         className={`px-3 py-2 border rounded ${
-          currentPage === totalPages
+          pageNumber === totalPages
             ? "opacity-50 cursor-not-allowed"
             : "hover:bg-gray-200"
         }`}
