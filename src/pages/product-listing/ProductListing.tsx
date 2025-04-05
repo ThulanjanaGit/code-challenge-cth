@@ -18,6 +18,7 @@ const ProductListing = () => {
     model: "any",
     minBid: 0,
     maxBid: Infinity,
+    favourite: false,
   });
 
   useEffect(() => {

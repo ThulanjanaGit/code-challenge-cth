@@ -91,7 +91,7 @@ const ProductListingFilters = ({
             onFilterUpdate(newFilters);
           }}
         >
-          <option value="0">any</option>
+          <option value="0">Any</option>
           {bidRange.map((bid) => (
             <option key={bid} value={bid}>
               {bid}
@@ -113,7 +113,7 @@ const ProductListingFilters = ({
             onFilterUpdate(newFilters);
           }}
         >
-          <option value="Infinity">any</option>
+          <option value="Infinity">Any</option>
           {bidRange.map((bid) => (
             <option key={bid} value={bid}>
               {bid}
@@ -127,11 +127,16 @@ const ProductListingFilters = ({
         <label className="block font-semibold">Favourite</label>
         <select
           className="mt-1 p-2 w-full border rounded-lg shadow-md"
-          onChange={() => {}}
+          onChange={(e) => {
+            const newFilters: SelectedFilters = {
+              ...selectedFilters,
+              favourite: e.target.value === "true",
+            };
+            onFilterUpdate(newFilters);
+          }}
         >
-          <option value="">All Filters</option>
-          <option value="Filter01">Filter01</option>
-          <option value="Filter02">Filter02</option>
+          <option value="any">Any</option>
+          <option value="true">Favourites</option>
         </select>
       </div>
     </div>

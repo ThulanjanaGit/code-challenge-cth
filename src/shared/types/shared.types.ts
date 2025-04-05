@@ -10,6 +10,7 @@ export type SelectedFilters = {
   model: string;
   minBid: number;
   maxBid: number;
+  favourite: boolean;
 };
 
 // Product
@@ -56,6 +57,7 @@ export type SearchFilters = {
   make: string[];
   model: Map<string, string[]>;
   priceRange: ProductPriceRange;
+  favourite?: boolean[];
 };
 
 type ProductPriceRange = {

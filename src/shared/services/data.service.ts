@@ -109,6 +109,9 @@ const getData = (
     .filter(
       (product) =>
         filters.maxBid === Infinity || product.startingBid <= filters.maxBid
+    )
+    .filter(
+      (product) => filters.favourite === false || product.favourite === true
     );
   response.totalItems = response.products.length;
 
