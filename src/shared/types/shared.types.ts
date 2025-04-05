@@ -1,8 +1,8 @@
 export type DataResponse = {
   products: Product[];
   filters: SearchFilters;
-  totalItems?: number;
-  currentPage?: number;
+  totalItems: number;
+  currentPage: number;
 };
 
 export type SelectedFilters = {
