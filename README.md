@@ -1,54 +1,130 @@
-# React + TypeScript + Vite
+# 🚗 Vehicle Listings App — React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a frontend coding challenge solution to display vehicle search results and detailed views using **React**, **TypeScript**, and **Vite**. The app loads vehicle data from a JSON file and allows filtering, sorting, and exploring each vehicle with a clean UI.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📦 Install Dependencies
 
-## Expanding the ESLint configuration
+```bash
+npm install
+```
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ▶️ Run the Development Server
 
-```js
+```bash
+npm run dev
+```
+
+## 🧪 Run Tests
+
+```bash
+npm run test
+```
+
+---
+
+## 🧩 Features
+
+### 🔍 Filter Vehicles by:
+
+- Make
+- Model
+- Starting Bid Range
+- Favourites Only
+
+### ↕️ Sort Vehicles by:
+
+- Make
+- Starting Bid
+- Mileage
+- Auction Date
+
+### 💡 Additional Features:
+
+- ❤️ **Mark as Favourite:** Toggle favourite status
+- ⏱️ **Auction Countdown:** Shows days/hours left until auction
+- 🧭 **Vehicle Detail Page:** Full specs, ownership, and equipment
+- 🗂️ **Pagination:** Custom vehicles per page
+- 🖼️ **Image Placeholder:** For each vehicle card
+- 🧠 **State Management:** Using React hooks and context
+- 🧪 **Testing:** With React Testing Library
+
+---
+
+## ✅ ESLint Configuration
+
+We’ve extended type-safe linting rules for clean and maintainable code.
+
+### 🔒 Basic Type-Aware Linting
+
+```ts
 export default tseslint.config({
   extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
     ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
     ...tseslint.configs.stylisticTypeChecked,
   ],
   languageOptions: {
-    // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### ⚛️ Optional: React-specific Plugins
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Install `eslint-plugin-react-x` and `eslint-plugin-react-dom` for extra lint rules:
+
+```ts
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default tseslint.config({
   plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+    "react-x": reactX,
+    "react-dom": reactDom,
   },
   rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
+    ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules,
   },
-})
+});
 ```
+
+---
+
+## 🧪 Testing Strategy
+
+Testing is done using **React Testing Library**, with focus on:
+
+- Vehicle card rendering
+- Favourite toggle
+- Filter & sort logic
+- Pagination handling
+- Detail page navigation
+
+Run tests with:
+
+```bash
+npm run test
+```
+
+---
+
+## 📝 Developer Notes
+
+- Responsive UI built with Tailwind CSS
+- Accessible markup and semantic HTML
+- Modular components and hooks
+- Static JSON used for dataset simulation
+- Project ready to scale with API support
+
+---
+
+## 📎 License
+
+This project is submitted as part of a technical assessment and is intended for demonstration purposes only.
+
+---
